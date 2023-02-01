@@ -21,7 +21,8 @@ except Exception as exc:
     print("Some folder not available: ", exc)
 
 try:
-    os.mkdir(f"images/{new_folder}")
+    if not os.path.exists(new_folder):
+        os.mkdir(f"images/{new_folder}")
 except Exception as exc:
     print("error creating dir: ", exc)
 
@@ -30,6 +31,7 @@ print(JPGs)
 for file in JPGs:
     image = Image.open(f"{folder}/{file}")
     path = "images/" + new_folder + "/" + file.split('.')[0] + ".png"
+    # instead of 'split' you could alos use os.path.splitext(file)[0]
     print("path: ", path)
     image.save(path)
 
